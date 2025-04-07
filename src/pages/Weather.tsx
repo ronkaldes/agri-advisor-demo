@@ -1,17 +1,9 @@
-
 import React from 'react';
 import Layout from '@/components/layout/Layout';
 import WeatherChart from '@/components/dashboard/WeatherChart';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CloudRain, Sun, Cloud, Wind, Droplet } from 'lucide-react';
-
-// ממשק לנתוני מזג אוויר
-interface WeatherDataPoint {
-  date: string;
-  temperature?: number;
-  rainfall?: number;
-  humidity?: number;
-}
+import { WeatherDataPoint } from '@/types/weather';
 
 const Weather = () => {
   // נתונים לדוגמה - תחזית ל-7 ימים
@@ -196,7 +188,7 @@ const Weather = () => {
               <div className="p-3 border border-gray-200 rounded-md">
                 <h4 className="font-medium mb-1">הגנת הצומח</h4>
                 <p className="text-sm">
-                  לאחר הגשם הצפוי ביום רביעי, מומלץ לבצע טיפול מניעתי נגד מחלות פטרייתיות ביום חמישי.
+                  לאחר הגשם ה��פוי ביום רביעי, מומלץ לבצע טיפול מניעתי נגד מחלות פטרייתיות ביום חמישי.
                 </p>
               </div>
               
