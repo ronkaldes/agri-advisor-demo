@@ -10,15 +10,7 @@ import {
   CartesianGrid, 
   Tooltip 
 } from 'recharts';
-
-// מאפשר נתונים חלקיים - לא כל הנתונים חייבים להיות מלאים
-interface WeatherDataPoint {
-  date: string;
-  temperature?: number;
-  rainfall?: number;
-  humidity?: number;
-  [key: string]: string | number | undefined;
-}
+import { WeatherDataPoint } from '@/types/weather';
 
 interface WeatherChartProps {
   data: WeatherDataPoint[];

@@ -10,7 +10,7 @@ const DEFAULT_ZOOM = 14;
 // ממשק עבור Google Maps
 declare global {
   interface Window {
-    google: any;
+    google: typeof google;
   }
 }
 
