@@ -24,7 +24,7 @@ const MapComponent: React.FC = () => {
   useEffect(() => {
     // מפתח API של Google Maps - בסביבת הפיתוח זה מוצג כדוגמה
     // בסביבת הייצור צריך להשתמש במפתח אמיתי מוסתר בסביבת השרת
-    const API_KEY = 'YOUR_GOOGLE_MAPS_API_KEY';
+    const API_KEY = 'AIzaSyC6F1gKcN1Wmp4gqdnXCR4aVGvQvhVwGzk'; // מפתח לדוגמה - יש להחליף בסביבת ייצור
     
     if (!mapRef.current) return;
     
@@ -158,7 +158,7 @@ const MapComponent: React.FC = () => {
   }
   
   return (
-    <div className="relative h-[600px] w-full rounded-lg overflow-hidden">
+    <div className="relative h-full w-full rounded-lg overflow-hidden">
       <div ref={mapRef} className="h-full w-full" />
       
       {/* כפתורי שליטה */}

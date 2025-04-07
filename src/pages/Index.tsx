@@ -149,7 +149,9 @@ const Index = () => {
         <div className="md:col-span-2">
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-4">מפת החלקות</h2>
-            <MapComponent />
+            <div className="h-[400px] w-full">
+              <MapComponent />
+            </div>
           </div>
           
           <div>
