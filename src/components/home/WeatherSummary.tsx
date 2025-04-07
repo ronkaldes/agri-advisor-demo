@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { BiCloudRain, BiSun, BiWind, BiDroplet } from 'react-icons/bi';
+import { CloudRain, Sun, Wind, Droplet } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface WeatherSummaryProps {
   location: string;
@@ -36,7 +37,7 @@ const WeatherSummary: React.FC<WeatherSummaryProps> = ({
       
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center">
-          <BiSun size={38} className="text-agri-yellow ml-3" />
+          <Sun size={38} className="text-agri-yellow ml-3" />
           <div>
             <p className="text-2xl font-bold">{current.temp}°C</p>
             <p className="text-sm text-gray-500">{current.condition}</p>
@@ -45,15 +46,15 @@ const WeatherSummary: React.FC<WeatherSummaryProps> = ({
         
         <div className="flex gap-4">
           <div className="flex flex-col items-center">
-            <BiDroplet size={20} className="text-agri-blue mb-1" />
+            <Droplet size={20} className="text-agri-blue mb-1" />
             <p className="text-sm">{current.humidity}%</p>
           </div>
           <div className="flex flex-col items-center">
-            <BiWind size={20} className="text-agri-gray mb-1" />
+            <Wind size={20} className="text-agri-gray mb-1" />
             <p className="text-sm">{current.windSpeed} קמ"ש</p>
           </div>
           <div className="flex flex-col items-center">
-            <BiCloudRain size={20} className="text-agri-blue mb-1" />
+            <CloudRain size={20} className="text-agri-blue mb-1" />
             <p className="text-sm">{current.rainChance}%</p>
           </div>
         </div>
@@ -72,7 +73,5 @@ const WeatherSummary: React.FC<WeatherSummaryProps> = ({
     </div>
   );
 };
-
-import { Link } from 'react-router-dom';
 
 export default WeatherSummary;

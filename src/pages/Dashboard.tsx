@@ -17,37 +17,28 @@ import {
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+// מאפשר נתונים חלקיים
+interface WeatherDataPoint {
+  date: string;
+  temperature?: number;
+  rainfall?: number;
+  humidity?: number;
+}
+
 const Dashboard = () => {
   // נתונים לדוגמה - מזג אוויר
-  const temperatureData = [
-    { date: '01/04 יום א', temperature: 28 },
-    { date: '02/04 יום ב', temperature: 29 },
-    { date: '03/04 יום ג', temperature: 27 },
-    { date: '04/04 יום ד', temperature: 24 },
-    { date: '05/04 יום ה', temperature: 26 },
-    { date: '06/04 יום ו', temperature: 25 },
-    { date: '07/04 שבת', temperature: 27 },
+  const temperatureData: WeatherDataPoint[] = [
+    { date: '01/04 יום א', temperature: 28, rainfall: 0, humidity: 45 },
+    { date: '02/04 יום ב', temperature: 29, rainfall: 0, humidity: 50 },
+    { date: '03/04 יום ג', temperature: 27, rainfall: 0, humidity: 55 },
+    { date: '04/04 יום ד', temperature: 24, rainfall: 8, humidity: 75 },
+    { date: '05/04 יום ה', temperature: 26, rainfall: 2, humidity: 65 },
+    { date: '06/04 יום ו', temperature: 25, rainfall: 0, humidity: 55 },
+    { date: '07/04 שבת', temperature: 27, rainfall: 0, humidity: 45 },
   ];
   
-  const rainfallData = [
-    { date: '01/04 יום א', rainfall: 0 },
-    { date: '02/04 יום ב', rainfall: 0 },
-    { date: '03/04 יום ג', rainfall: 0 },
-    { date: '04/04 יום ד', rainfall: 8 },
-    { date: '05/04 יום ה', rainfall: 2 },
-    { date: '06/04 יום ו', rainfall: 0 },
-    { date: '07/04 שבת', rainfall: 0 },
-  ];
-  
-  const humidityData = [
-    { date: '01/04 יום א', humidity: 45 },
-    { date: '02/04 יום ב', humidity: 50 },
-    { date: '03/04 יום ג', humidity: 55 },
-    { date: '04/04 יום ד', humidity: 75 },
-    { date: '05/04 יום ה', humidity: 65 },
-    { date: '06/04 יום ו', humidity: 55 },
-    { date: '07/04 שבת', humidity: 45 },
-  ];
+  const rainfallData: WeatherDataPoint[] = temperatureData;
+  const humidityData: WeatherDataPoint[] = temperatureData;
   
   // נתונים לדוגמה - שעות עבודת מכונות
   const machineUsageData = [

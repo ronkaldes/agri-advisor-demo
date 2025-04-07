@@ -5,7 +5,7 @@ import FieldCard from '@/components/home/FieldCard';
 import WeatherSummary from '@/components/home/WeatherSummary';
 import ActivityList from '@/components/home/ActivityList';
 import MapComponent from '@/components/map/MapComponent';
-import { BiCloudRain, BiCloud, BiSun, BiCloudDrizzle, BiWind } from 'react-icons/bi';
+import { CloudRain, Cloud, Sun, CloudDrizzle, Wind } from 'lucide-react';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +30,7 @@ const Index = () => {
         type: 'ריסוס',
         date: '05/04/2025'
       },
-      status: 'warning'
+      status: 'warning' as 'normal' | 'warning' | 'alert'
     },
     {
       id: '2',
@@ -41,7 +41,7 @@ const Index = () => {
         type: 'השקייה',
         date: '08/04/2025'
       },
-      status: 'normal'
+      status: 'normal' as 'normal' | 'warning' | 'alert'
     },
     {
       id: '3',
@@ -52,7 +52,7 @@ const Index = () => {
         type: 'דישון',
         date: '01/04/2025'
       },
-      status: 'alert'
+      status: 'alert' as 'normal' | 'warning' | 'alert'
     }
   ];
   
@@ -62,7 +62,7 @@ const Index = () => {
       type: 'ריסוס',
       fieldName: 'חלקה מערבית',
       date: '05/04/2025',
-      status: 'pending',
+      status: 'pending' as 'pending' | 'overdue' | 'completed',
       details: 'ריסוס נגד כנימות עלה'
     },
     {
@@ -70,14 +70,14 @@ const Index = () => {
       type: 'השקייה',
       fieldName: 'חלקה מזרחית',
       date: '08/04/2025',
-      status: 'pending'
+      status: 'pending' as 'pending' | 'overdue' | 'completed'
     },
     {
       id: '3',
       type: 'דישון',
       fieldName: 'חלקה צפונית',
       date: '01/04/2025',
-      status: 'overdue',
+      status: 'overdue' as 'pending' | 'overdue' | 'completed',
       details: 'דישון חנקתי'
     }
   ];
@@ -97,35 +97,35 @@ const Index = () => {
         condition: 'בהיר',
         tempMax: 30,
         tempMin: 22,
-        icon: <BiSun size={24} className="text-agri-yellow mx-auto" />
+        icon: <Sun size={24} className="text-agri-yellow mx-auto" />
       },
       {
         day: 'ב׳',
         condition: 'מעונן חלקית',
         tempMax: 29,
         tempMin: 21,
-        icon: <BiCloud size={24} className="text-gray-400 mx-auto" />
+        icon: <Cloud size={24} className="text-gray-400 mx-auto" />
       },
       {
         day: 'ג׳',
         condition: 'מעונן',
         tempMax: 27,
         tempMin: 20,
-        icon: <BiCloud size={24} className="text-gray-500 mx-auto" />
+        icon: <Cloud size={24} className="text-gray-500 mx-auto" />
       },
       {
         day: 'ד׳',
         condition: 'גשום',
         tempMax: 24,
         tempMin: 19,
-        icon: <BiCloudRain size={24} className="text-agri-blue mx-auto" />
+        icon: <CloudRain size={24} className="text-agri-blue mx-auto" />
       },
       {
         day: 'ה׳',
         condition: 'בהיר',
         tempMax: 26,
         tempMin: 18,
-        icon: <BiSun size={24} className="text-agri-yellow mx-auto" />
+        icon: <Sun size={24} className="text-agri-yellow mx-auto" />
       }
     ]
   };
@@ -163,7 +163,7 @@ const Index = () => {
                   crop={field.crop}
                   area={field.area}
                   nextActivity={field.nextActivity}
-                  status={field.status as 'normal' | 'warning' | 'alert'}
+                  status={field.status}
                 />
               ))}
             </div>

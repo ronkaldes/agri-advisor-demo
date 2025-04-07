@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Badge } from "@/components/ui/badge";
-import { BiChevronLeft, BiCalendar } from 'react-icons/bi';
+import { ChevronLeft, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface Activity {
@@ -56,7 +56,7 @@ const ActivityList: React.FC<ActivityListProps> = ({ activities, title }) => {
                 <div className="flex flex-col items-end">
                   {getStatusBadge(activity.status)}
                   <div className="flex items-center mt-1 text-sm text-gray-500">
-                    <BiCalendar className="ml-1" />
+                    <Calendar className="ml-1" size={16} />
                     <span>{activity.date}</span>
                   </div>
                 </div>
@@ -72,7 +72,7 @@ const ActivityList: React.FC<ActivityListProps> = ({ activities, title }) => {
                   className="inline-flex items-center text-xs text-agri-blue hover:text-agri-navy transition-colors"
                 >
                   <span>פרטים נוספים</span>
-                  <BiChevronLeft size={16} />
+                  <ChevronLeft size={16} />
                 </Link>
               </div>
             </div>

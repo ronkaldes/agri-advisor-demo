@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BiChevronLeft } from 'react-icons/bi';
+import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface FieldCardProps {
@@ -55,7 +55,7 @@ const FieldCard: React.FC<FieldCardProps> = ({
       <div className="mt-3 text-left">
         <Link to={`/fields/${id}`} className="inline-flex items-center text-agri-blue hover:text-agri-navy transition-colors">
           <span>פרטים נוספים</span>
-          <BiChevronLeft size={20} />
+          <ChevronLeft size={20} />
         </Link>
       </div>
     </div>

@@ -1,11 +1,18 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
-import { BiCurrentLocation, BiLayerPlus, BiMinus, BiPlus } from 'react-icons/bi';
+import { MapPin, Layers, Minus, Plus } from 'lucide-react';
 
 // מיקום ברירת מחדל - הוד השרון
 const DEFAULT_CENTER = { lat: 32.1558, lng: 34.8934 };
 const DEFAULT_ZOOM = 14;
+
+// ממשק עבור Google Maps
+declare global {
+  interface Window {
+    google: any;
+  }
+}
 
 // רכיב ראשי של המפה
 const MapComponent: React.FC = () => {
@@ -30,13 +37,13 @@ const MapComponent: React.FC = () => {
     loader.load()
       .then(() => {
         if (mapRef.current) {
-          const map = new google.maps.Map(mapRef.current, {
+          const map = new window.google.maps.Map(mapRef.current, {
             center: DEFAULT_CENTER,
             zoom: DEFAULT_ZOOM,
-            mapTypeId: google.maps.MapTypeId.SATELLITE,
+            mapTypeId: window.google.maps.MapTypeId.SATELLITE,
             mapTypeControl: true,
             mapTypeControlOptions: {
-              position: google.maps.ControlPosition.TOP_LEFT
+              position: window.google.maps.ControlPosition.TOP_LEFT
             },
             fullscreenControl: true,
             streetViewControl: false,
@@ -82,7 +89,7 @@ const MapComponent: React.FC = () => {
     ];
     
     fields.forEach(field => {
-      const polygon = new google.maps.Polygon({
+      const polygon = new window.google.maps.Polygon({
         paths: field.path,
         strokeColor: field.color,
         strokeOpacity: 0.8,
@@ -94,7 +101,7 @@ const MapComponent: React.FC = () => {
       });
       
       // הוסף מאזין לחיצה שיציג מידע
-      google.maps.event.addListener(polygon, 'click', () => {
+      window.google.maps.event.addListener(polygon, 'click', () => {
         alert(`שם השדה: ${field.name}`);
       });
     });
@@ -115,12 +122,12 @@ const MapComponent: React.FC = () => {
           mapInstance.setZoom(16);
           
           // הוסף סמן למיקום המשתמש
-          new google.maps.Marker({
+          new window.google.maps.Marker({
             position: pos,
             map: mapInstance,
             title: 'המיקום שלך',
             icon: {
-              path: google.maps.SymbolPath.CIRCLE,
+              path: window.google.maps.SymbolPath.CIRCLE,
               scale: 8,
               fillColor: '#4285F4',
               fillOpacity: 1,
@@ -162,7 +169,7 @@ const MapComponent: React.FC = () => {
             className="bg-white p-2 rounded-full shadow-md hover:bg-gray-100"
             title="עבור למיקום שלי"
           >
-            <BiCurrentLocation size={24} className="text-agri-blue" />
+            <MapPin size={24} className="text-agri-blue" />
           </button>
           
           <button
@@ -170,7 +177,7 @@ const MapComponent: React.FC = () => {
             className="bg-white p-2 rounded-full shadow-md hover:bg-gray-100"
             title="התקרב"
           >
-            <BiPlus size={24} />
+            <Plus size={24} />
           </button>
           
           <button
@@ -178,14 +185,14 @@ const MapComponent: React.FC = () => {
             className="bg-white p-2 rounded-full shadow-md hover:bg-gray-100"
             title="התרחק"
           >
-            <BiMinus size={24} />
+            <Minus size={24} />
           </button>
           
           <button
             className="bg-white p-2 rounded-full shadow-md hover:bg-gray-100"
             title="הוסף שכבות"
           >
-            <BiLayerPlus size={24} className="text-agri-green" />
+            <Layers size={24} className="text-agri-green" />
           </button>
         </div>
       )}

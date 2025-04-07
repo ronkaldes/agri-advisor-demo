@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { BiSearch, BiUser, BiBell } from 'react-icons/bi';
+import { Search, User, Bell } from 'lucide-react';
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -32,17 +32,17 @@ const Header: React.FC<HeaderProps> = ({ title = 'אדמה חכמה' }) => {
               className="agri-input w-64 pl-10"
               dir="rtl"
             />
-            <BiSearch className="absolute left-3 top-2.5 text-gray-400" size={20} />
+            <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
           </div>
           
           <button className="p-2 rounded-full hover:bg-gray-100">
-            <BiBell size={22} className="text-agri-darkgray" />
+            <Bell size={22} className="text-agri-darkgray" />
           </button>
           
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="p-2 rounded-full hover:bg-gray-100">
-                <BiUser size={22} className="text-agri-darkgray" />
+                <User size={22} className="text-agri-darkgray" />
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">

@@ -2,22 +2,22 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  BiHomeAlt2, 
-  BiTable, 
-  BiMap, 
-  BiCloudRain, 
-  BiSun, 
-  BiBot, 
-  BiCog 
-} from 'react-icons/bi';
+  Home, 
+  LayoutGrid, 
+  Map, 
+  CloudRain, 
+  Sun, 
+  Bot, 
+  Settings 
+} from 'lucide-react';
 
 const sidebarItems = [
-  { path: '/', label: 'בית', icon: <BiHomeAlt2 size={20} /> },
-  { path: '/dashboard', label: 'לוח בקרה', icon: <BiTable size={20} /> },
-  { path: '/map', label: 'מפת גידולים', icon: <BiMap size={20} /> },
-  { path: '/weather', label: 'מזג אוויר', icon: <BiCloudRain size={20} /> },
-  { path: '/solar', label: 'נתוני שמש', icon: <BiSun size={20} /> },
-  { path: '/advisor', label: 'יועץ חקלאי', icon: <BiBot size={20} /> },
+  { path: '/', label: 'בית', icon: <Home size={20} /> },
+  { path: '/dashboard', label: 'לוח בקרה', icon: <LayoutGrid size={20} /> },
+  { path: '/map', label: 'מפת גידולים', icon: <Map size={20} /> },
+  { path: '/weather', label: 'מזג אוויר', icon: <CloudRain size={20} /> },
+  { path: '/solar', label: 'נתוני שמש', icon: <Sun size={20} /> },
+  { path: '/advisor', label: 'יועץ חקלאי', icon: <Bot size={20} /> },
 ];
 
 const Sidebar = () => {
@@ -52,7 +52,7 @@ const Sidebar = () => {
       
       <div className="mt-auto">
         <Link to="/settings" className="agri-sidebar-item">
-          <BiCog size={20} />
+          <Settings size={20} />
           <span className="opacity-0 group-hover:opacity-100 whitespace-nowrap overflow-hidden transition-all duration-300">
             הגדרות
           </span>

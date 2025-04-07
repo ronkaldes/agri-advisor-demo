@@ -1,97 +1,74 @@
 
 import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
-  AreaChart, 
-  Area, 
+  ResponsiveContainer, 
+  LineChart, 
+  Line, 
   XAxis, 
   YAxis, 
   CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer 
+  Tooltip 
 } from 'recharts';
 
+// מאפשר נתונים חלקיים - לא כל הנתונים חייבים להיות מלאים
 interface WeatherDataPoint {
   date: string;
-  temperature: number;
-  rainfall: number;
-  humidity: number;
+  temperature?: number;
+  rainfall?: number;
+  humidity?: number;
+  [key: string]: string | number | undefined;
 }
 
 interface WeatherChartProps {
   data: WeatherDataPoint[];
   title: string;
-  dataKey: 'temperature' | 'rainfall' | 'humidity';
+  dataKey: string;
 }
 
 const WeatherChart: React.FC<WeatherChartProps> = ({ data, title, dataKey }) => {
-  const getGradientColors = () => {
+  // קבע צבע לפי סוג הנתונים
+  const getLineColor = () => {
     switch (dataKey) {
       case 'temperature':
-        return ['#FF9500', '#FF4D6D'];
+        return '#FF4500';
       case 'rainfall':
-        return ['#5BC0EB', '#3A7CA5'];
+        return '#3D9DFF';
       case 'humidity':
-        return ['#81C3D7', '#4D9DE0'];
+        return '#39CCCC';
       default:
-        return ['#9BC53D', '#5C8001'];
+        return '#7C4DFF';
     }
   };
-  
-  const getUnit = () => {
-    switch (dataKey) {
-      case 'temperature':
-        return '°C';
-      case 'rainfall':
-        return 'מ"מ';
-      case 'humidity':
-        return '%';
-      default:
-        return '';
-    }
-  };
-  
-  const [color1, color2] = getGradientColors();
-  const unit = getUnit();
   
   return (
-    <div className="agri-card h-72">
-      <h3 className="text-lg font-semibold mb-3">{title}</h3>
-      
-      <ResponsiveContainer width="100%" height="85%">
-        <AreaChart
-          data={data}
-          margin={{ top: 10, right: 10, left: 10, bottom: 0 }}
-        >
-          <defs>
-            <linearGradient id={`color-${dataKey}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor={color1} stopOpacity={0.8} />
-              <stop offset="95%" stopColor={color2} stopOpacity={0.2} />
-            </linearGradient>
-          </defs>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis 
-            dataKey="date" 
-            tick={{ fontSize: 12 }}
-            tickFormatter={(date) => date.split(' ')[0]}
-          />
-          <YAxis 
-            tick={{ fontSize: 12 }}
-            tickFormatter={(value) => `${value}${unit}`}
-          />
-          <Tooltip 
-            formatter={(value) => [`${value}${unit}`, '']}
-            labelFormatter={(label) => label}
-          />
-          <Area
-            type="monotone"
-            dataKey={dataKey}
-            stroke={color1}
-            fillOpacity={1}
-            fill={`url(#color-${dataKey})`}
-          />
-        </AreaChart>
-      </ResponsiveContainer>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="h-[250px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={data}
+              margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Line 
+                type="monotone" 
+                dataKey={dataKey} 
+                stroke={getLineColor()} 
+                strokeWidth={2} 
+                dot={{ r: 4 }} 
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

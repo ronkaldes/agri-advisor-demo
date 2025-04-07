@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { BiSend, BiBot, BiUserCircle } from 'react-icons/bi';
+import { Send, Bot, User } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -91,7 +91,7 @@ const AdvisorChat: React.FC = () => {
     <div className="flex flex-col h-[70vh] bg-white rounded-lg shadow-md">
       <div className="bg-agri-green p-3 rounded-t-lg">
         <div className="flex items-center">
-          <BiBot className="text-white ml-2" size={28} />
+          <Bot className="text-white ml-2" size={28} />
           <div>
             <h2 className="text-white text-lg font-bold">יועץ חקלאי</h2>
             <p className="text-white/80 text-sm">מומחה לאזור הוד השרון</p>
@@ -116,11 +116,11 @@ const AdvisorChat: React.FC = () => {
                 {message.sender === 'user' ? (
                   <>
                     <span className="text-xs opacity-70">{formatTime(message.timestamp)}</span>
-                    <BiUserCircle className="text-white mr-1" size={16} />
+                    <User className="text-white mr-1" size={16} />
                   </>
                 ) : (
                   <>
-                    <BiBot className="text-agri-green ml-1" size={16} />
+                    <Bot className="text-agri-green ml-1" size={16} />
                     <span className="text-xs opacity-70">{formatTime(message.timestamp)}</span>
                   </>
                 )}
@@ -162,7 +162,7 @@ const AdvisorChat: React.FC = () => {
               newMessage.trim() ? 'bg-agri-green text-white' : 'bg-gray-200 text-gray-500'
             }`}
           >
-            <BiSend size={20} />
+            <Send size={20} />
           </button>
         </div>
         <p className="text-xs text-gray-500 mt-2 text-center">

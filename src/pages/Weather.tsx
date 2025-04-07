@@ -3,7 +3,15 @@ import React from 'react';
 import Layout from '@/components/layout/Layout';
 import WeatherChart from '@/components/dashboard/WeatherChart';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { BiCloudRain, BiSun, BiCloud, BiWind, BiDroplet } from 'react-icons/bi';
+import { CloudRain, Sun, Cloud, Wind, Droplet } from 'lucide-react';
+
+// ממשק לנתוני מזג אוויר
+interface WeatherDataPoint {
+  date: string;
+  temperature?: number;
+  rainfall?: number;
+  humidity?: number;
+}
 
 const Weather = () => {
   // נתונים לדוגמה - תחזית ל-7 ימים
@@ -17,7 +25,7 @@ const Weather = () => {
       humidity: 45,
       windSpeed: 12,
       rainChance: 0,
-      icon: <BiSun size={36} className="text-yellow-500" />
+      icon: <Sun size={36} className="text-yellow-500" />
     },
     {
       date: '8.4.25',
@@ -28,7 +36,7 @@ const Weather = () => {
       humidity: 50,
       windSpeed: 10,
       rainChance: 10,
-      icon: <BiCloud size={36} className="text-gray-400" />
+      icon: <Cloud size={36} className="text-gray-400" />
     },
     {
       date: '9.4.25',
@@ -39,7 +47,7 @@ const Weather = () => {
       humidity: 55,
       windSpeed: 15,
       rainChance: 20,
-      icon: <BiCloud size={36} className="text-gray-500" />
+      icon: <Cloud size={36} className="text-gray-500" />
     },
     {
       date: '10.4.25',
@@ -50,7 +58,7 @@ const Weather = () => {
       humidity: 75,
       windSpeed: 20,
       rainChance: 80,
-      icon: <BiCloudRain size={36} className="text-blue-500" />
+      icon: <CloudRain size={36} className="text-blue-500" />
     },
     {
       date: '11.4.25',
@@ -61,7 +69,7 @@ const Weather = () => {
       humidity: 65,
       windSpeed: 18,
       rainChance: 40,
-      icon: <BiCloudRain size={36} className="text-blue-400" />
+      icon: <CloudRain size={36} className="text-blue-400" />
     },
     {
       date: '12.4.25',
@@ -72,7 +80,7 @@ const Weather = () => {
       humidity: 55,
       windSpeed: 12,
       rainChance: 0,
-      icon: <BiSun size={36} className="text-yellow-500" />
+      icon: <Sun size={36} className="text-yellow-500" />
     },
     {
       date: '13.4.25',
@@ -83,61 +91,30 @@ const Weather = () => {
       humidity: 50,
       windSpeed: 10,
       rainChance: 0,
-      icon: <BiSun size={36} className="text-yellow-500" />
+      icon: <Sun size={36} className="text-yellow-500" />
     }
   ];
   
   // נתונים לדוגמה - מזג אוויר
-  const temperatureData = [
-    { date: '01/04 יום א', temperature: 28 },
-    { date: '02/04 יום ב', temperature: 29 },
-    { date: '03/04 יום ג', temperature: 27 },
-    { date: '04/04 יום ד', temperature: 24 },
-    { date: '05/04 יום ה', temperature: 26 },
-    { date: '06/04 יום ו', temperature: 25 },
-    { date: '07/04 שבת', temperature: 27 },
-    { date: '08/04 יום א', temperature: 28 },
-    { date: '09/04 יום ב', temperature: 26 },
-    { date: '10/04 יום ג', temperature: 25 },
-    { date: '11/04 יום ד', temperature: 24 },
-    { date: '12/04 יום ה', temperature: 25 },
-    { date: '13/04 יום ו', temperature: 27 },
-    { date: '14/04 שבת', temperature: 28 },
+  const temperatureData: WeatherDataPoint[] = [
+    { date: '01/04 יום א', temperature: 28, rainfall: 0, humidity: 45 },
+    { date: '02/04 יום ב', temperature: 29, rainfall: 0, humidity: 50 },
+    { date: '03/04 יום ג', temperature: 27, rainfall: 0, humidity: 55 },
+    { date: '04/04 יום ד', temperature: 24, rainfall: 8, humidity: 75 },
+    { date: '05/04 יום ה', temperature: 26, rainfall: 2, humidity: 65 },
+    { date: '06/04 יום ו', temperature: 25, rainfall: 0, humidity: 55 },
+    { date: '07/04 שבת', temperature: 27, rainfall: 0, humidity: 45 },
+    { date: '08/04 יום א', temperature: 28, rainfall: 0, humidity: 50 },
+    { date: '09/04 יום ב', temperature: 26, rainfall: 0, humidity: 55 },
+    { date: '10/04 יום ג', temperature: 25, rainfall: 5, humidity: 65 },
+    { date: '11/04 יום ד', temperature: 24, rainfall: 12, humidity: 80 },
+    { date: '12/04 יום ה', temperature: 25, rainfall: 3, humidity: 70 },
+    { date: '13/04 יום ו', temperature: 27, rainfall: 0, humidity: 55 },
+    { date: '14/04 שבת', temperature: 28, rainfall: 0, humidity: 50 },
   ];
   
-  const rainfallData = [
-    { date: '01/04 יום א', rainfall: 0 },
-    { date: '02/04 יום ב', rainfall: 0 },
-    { date: '03/04 יום ג', rainfall: 0 },
-    { date: '04/04 יום ד', rainfall: 8 },
-    { date: '05/04 יום ה', rainfall: 2 },
-    { date: '06/04 יום ו', rainfall: 0 },
-    { date: '07/04 שבת', rainfall: 0 },
-    { date: '08/04 יום א', rainfall: 0 },
-    { date: '09/04 יום ב', rainfall: 0 },
-    { date: '10/04 יום ג', rainfall: 5 },
-    { date: '11/04 יום ד', rainfall: 12 },
-    { date: '12/04 יום ה', rainfall: 3 },
-    { date: '13/04 יום ו', rainfall: 0 },
-    { date: '14/04 שבת', rainfall: 0 },
-  ];
-  
-  const humidityData = [
-    { date: '01/04 יום א', humidity: 45 },
-    { date: '02/04 יום ב', humidity: 50 },
-    { date: '03/04 יום ג', humidity: 55 },
-    { date: '04/04 יום ד', humidity: 75 },
-    { date: '05/04 יום ה', humidity: 65 },
-    { date: '06/04 יום ו', humidity: 55 },
-    { date: '07/04 שבת', humidity: 45 },
-    { date: '08/04 יום א', humidity: 50 },
-    { date: '09/04 יום ב', humidity: 55 },
-    { date: '10/04 יום ג', humidity: 65 },
-    { date: '11/04 יום ד', humidity: 80 },
-    { date: '12/04 יום ה', humidity: 70 },
-    { date: '13/04 יום ו', humidity: 55 },
-    { date: '14/04 שבת', humidity: 50 },
-  ];
+  const rainfallData: WeatherDataPoint[] = temperatureData;
+  const humidityData: WeatherDataPoint[] = temperatureData;
   
   return (
     <Layout title="מזג אוויר - הוד השרון">
@@ -163,16 +140,16 @@ const Weather = () => {
                   </div>
                   <div className="flex justify-between w-full mt-3 text-sm">
                     <div className="flex items-center">
-                      <BiDroplet className="text-agri-blue" />
+                      <Droplet className="text-agri-blue" />
                       <span className="mr-1">{day.humidity}%</span>
                     </div>
                     <div className="flex items-center">
-                      <BiWind className="text-agri-gray" />
+                      <Wind className="text-agri-gray" />
                       <span className="mr-1">{day.windSpeed}</span>
                     </div>
                   </div>
                   <div className="mt-2 flex items-center text-sm">
-                    <BiCloudRain className="text-agri-blue" />
+                    <CloudRain className="text-agri-blue" />
                     <span className="mr-1">{day.rainChance}%</span>
                   </div>
                 </div>

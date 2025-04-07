@@ -14,7 +14,7 @@ import {
   Line,
   Legend
 } from 'recharts';
-import { BiSun, BiCalendar } from 'react-icons/bi';
+import { Sun, Calendar } from 'lucide-react';
 
 const Solar = () => {
   // נתונים לדוגמה - קרינת שמש יומית
@@ -64,17 +64,17 @@ const Solar = () => {
     {
       title: 'ניצול קרינת שמש להשקיה',
       description: 'בחודשי הקיץ, מומלץ להשקות בשעות הערב כדי למנוע התאדות מהירה.',
-      icon: <BiSun size={32} className="text-yellow-500" />
+      icon: <Sun size={32} className="text-yellow-500" />
     },
     {
       title: 'תכנון גידולים עונתי',
       description: 'תכנון גידולים לפי עונות השנה יכול לחסוך כ-20% בצריכת המים.',
-      icon: <BiCalendar size={32} className="text-green-500" />
+      icon: <Calendar size={32} className="text-green-500" />
     },
     {
       title: 'הצללה ומיקרו-אקלים',
       description: 'הצללה חלקית בחודשי הקיץ יכולה לשפר את התפוקה של גידולים רגישים לחום.',
-      icon: <BiSun size={32} className="text-orange-500" />
+      icon: <Sun size={32} className="text-orange-500" />
     }
   ];
   
@@ -201,7 +201,7 @@ const Solar = () => {
                 <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                   <h4 className="font-medium mb-1">ממוצע שנתי</h4>
                   <div className="flex items-center">
-                    <BiSun size={24} className="text-yellow-500 ml-2" />
+                    <Sun size={24} className="text-yellow-500 ml-2" />
                     <span className="text-2xl font-bold">540 W/m²</span>
                   </div>
                   <p className="text-sm text-gray-500 mt-1">ממוצע 5 שנים אחרונות</p>
@@ -210,7 +210,7 @@ const Solar = () => {
                 <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                   <h4 className="font-medium mb-1">שיא קרינה</h4>
                   <div className="flex items-center">
-                    <BiSun size={24} className="text-orange-500 ml-2" />
+                    <Sun size={24} className="text-orange-500 ml-2" />
                     <span className="text-2xl font-bold">920 W/m²</span>
                   </div>
                   <p className="text-sm text-gray-500 mt-1">יולי 2024</p>
@@ -219,7 +219,7 @@ const Solar = () => {
                 <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                   <h4 className="font-medium mb-1">שעות שמש</h4>
                   <div className="flex items-center">
-                    <BiSun size={24} className="text-yellow-500 ml-2" />
+                    <Sun size={24} className="text-yellow-500 ml-2" />
                     <span className="text-2xl font-bold">3,450</span>
                   </div>
                   <p className="text-sm text-gray-500 mt-1">שעות שמש בשנת 2024</p>
@@ -228,7 +228,7 @@ const Solar = () => {
                 <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                   <h4 className="font-medium mb-1">ימים מעוננים</h4>
                   <div className="flex items-center">
-                    <BiSun size={24} className="text-gray-400 ml-2" />
+                    <Sun size={24} className="text-gray-400 ml-2" />
                     <span className="text-2xl font-bold">48</span>
                   </div>
                   <p className="text-sm text-gray-500 mt-1">ימים מעוננים בשנת 2024</p>
