@@ -22,18 +22,11 @@ const MapComponent: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   
   useEffect(() => {
-    // מפתח API של Google Maps - בסביבת הפיתוח זה מוצג כדוגמה
-    // בסביבת הייצור צריך להשתמש במפתח אמיתי מוסתר בסביבת השרת
-    const API_KEY = ''; // מפתח API חסר - יש להוסיף מפתח תקף
+    // מפתח API של Google Maps
+    const API_KEY = 'AIzaSyBWAJOW-wip88IIn0vmQtDC6iRXB9jbvTQ';
     
     if (!mapRef.current) return;
 
-    // אם אין מפתח API, הצג הודעת שגיאה במקום לנסות לטעון את המפה
-    if (!API_KEY) {
-      setError('מפתח API של Google Maps חסר. יש להגדיר מפתח תקף.');
-      return;
-    }
-    
     const loader = new Loader({
       apiKey: API_KEY,
       version: 'weekly',
@@ -65,7 +58,7 @@ const MapComponent: React.FC = () => {
       })
       .catch(err => {
         console.error('שגיאה בטעינת המפה:', err);
-        setError('שגיאה בטעינת המפה. ייתכן שמפתח ה-API אינו תקף או שיש לו הגבלות.');
+        setError('שגיאה בטעינת המפה. ודא שמפתח ה-API תקף וללא הגבלות.');
       });
   }, []);
   
@@ -164,7 +157,7 @@ const MapComponent: React.FC = () => {
         <p className="text-gray-700 text-center mb-3">{error}</p>
         <div className="text-sm text-gray-500 text-center max-w-md">
           <p>כדי להציג את המפה, יש צורך במפתח API תקף של Google Maps.</p>
-          <p className="mt-2">עדכן את קובץ MapComponent.tsx עם מפתח תקף או הגדר משתנה סביבה VITE_GOOGLE_MAPS_API_KEY.</p>
+          <p className="mt-2">וודא שהמפתח שלך אינו מוגבל ושיש גישה לשירות Google Maps JavaScript API.</p>
         </div>
       </div>
     );
