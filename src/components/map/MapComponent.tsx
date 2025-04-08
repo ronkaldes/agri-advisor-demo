@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
-import { MapPin, Layers, Minus, Plus } from 'lucide-react';
+import { MapPin, Layers, Minus, Plus, AlertTriangle } from 'lucide-react';
 
 // מיקום ברירת מחדל - הוד השרון
 const DEFAULT_CENTER = { lat: 32.1558, lng: 34.8934 };
@@ -24,9 +24,15 @@ const MapComponent: React.FC = () => {
   useEffect(() => {
     // מפתח API של Google Maps - בסביבת הפיתוח זה מוצג כדוגמה
     // בסביבת הייצור צריך להשתמש במפתח אמיתי מוסתר בסביבת השרת
-    const API_KEY = 'AIzaSyC6F1gKcN1Wmp4gqdnXCR4aVGvQvhVwGzk'; // מפתח לדוגמה - יש להחליף בסביבת ייצור
+    const API_KEY = ''; // מפתח API חסר - יש להוסיף מפתח תקף
     
     if (!mapRef.current) return;
+
+    // אם אין מפתח API, הצג הודעת שגיאה במקום לנסות לטעון את המפה
+    if (!API_KEY) {
+      setError('מפתח API של Google Maps חסר. יש להגדיר מפתח תקף.');
+      return;
+    }
     
     const loader = new Loader({
       apiKey: API_KEY,
@@ -59,7 +65,7 @@ const MapComponent: React.FC = () => {
       })
       .catch(err => {
         console.error('שגיאה בטעינת המפה:', err);
-        setError('שגיאה בטעינת המפה, אנא נסה שוב מאוחר יותר');
+        setError('שגיאה בטעינת המפה. ייתכן שמפתח ה-API אינו תקף או שיש לו הגבלות.');
       });
   }, []);
   
@@ -149,10 +155,17 @@ const MapComponent: React.FC = () => {
   const zoomIn = () => mapInstance?.setZoom((mapInstance.getZoom() || DEFAULT_ZOOM) + 1);
   const zoomOut = () => mapInstance?.setZoom((mapInstance.getZoom() || DEFAULT_ZOOM) - 1);
   
+  // אם יש שגיאה, הצג הודעת שגיאה מותאמת במקום המפה
   if (error) {
     return (
-      <div className="bg-red-100 text-red-800 p-4 rounded-md">
-        <p>{error}</p>
+      <div className="flex flex-col items-center justify-center h-full w-full bg-gray-100 rounded-lg p-4 border border-gray-300">
+        <AlertTriangle size={48} className="text-orange-500 mb-4" />
+        <h3 className="text-lg font-semibold mb-2">שגיאת טעינת מפה</h3>
+        <p className="text-gray-700 text-center mb-3">{error}</p>
+        <div className="text-sm text-gray-500 text-center max-w-md">
+          <p>כדי להציג את המפה, יש צורך במפתח API תקף של Google Maps.</p>
+          <p className="mt-2">עדכן את קובץ MapComponent.tsx עם מפתח תקף או הגדר משתנה סביבה VITE_GOOGLE_MAPS_API_KEY.</p>
+        </div>
       </div>
     );
   }
@@ -197,7 +210,7 @@ const MapComponent: React.FC = () => {
         </div>
       )}
       
-      {!mapLoaded && (
+      {!mapLoaded && !error && (
         <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-70">
           <div className="text-center">
             <p className="mb-2">טוען מפה...</p>
