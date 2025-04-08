@@ -1,73 +1,144 @@
-# Welcome to your Lovable project
 
-## Project info
+# אדמה חכמה (Smart Soil) - Agricultural Management Platform
 
-**URL**: https://lovable.dev/projects/a8d1c623-ddbb-42d2-9443-6f20043b46fc
+![Smart Soil Logo](/lovable-uploads/eced0445-d0fb-449c-9a15-430f8d48e9c9.png)
 
-## How can I edit this code?
+## Overview
 
-There are several ways of editing your application.
+אדמה חכמה (Smart Soil) is a comprehensive agricultural management system designed specifically for Israeli farmers. The platform provides real-time insights, data visualization, and management tools to help farmers make data-driven decisions, optimize crop yields, and improve resource management.
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/a8d1c623-ddbb-42d2-9443-6f20043b46fc) and start prompting.
+### Dashboard & Analytics
+- **Real-time Overview**: Get a comprehensive view of all farm activities, field status, and upcoming tasks
+- **Weather Data**: Access current and forecasted weather conditions with agricultural recommendations
+- **Interactive Charts**: Visualize key metrics such as temperature, rainfall, and humidity trends
+- **Resource Tracking**: Monitor machine usage, field time, and activity distribution
 
-Changes made via Lovable will be committed automatically to this repo.
+### Field Management
+- **Interactive Map**: Satellite view of all agricultural fields with detailed information
+- **Field Status Monitoring**: Track each field's health status with visual indicators (normal, warning, alert)
+- **Activity Planning**: Schedule and monitor field activities like irrigation, fertilization, and spraying
+- **Area Calculation**: Automatic calculation of field sizes in dunams (דונם)
 
-**Use your preferred IDE**
+### Weather & Environmental Data
+- **7-Day Forecast**: Detailed weather prediction with temperature, humidity, and rainfall chances
+- **Agricultural Recommendations**: Weather-based suggestions for farming activities
+- **Historical Data**: Access and analyze past weather patterns
+- **Custom Alerts**: Receive warnings about extreme weather conditions that might affect crops
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Solar Radiation Tracking
+- **Daily Radiation Curves**: Monitor solar radiation throughout the day
+- **Monthly Averages**: Compare current solar radiation with historical averages
+- **Energy Optimization**: Recommendations for utilizing solar energy efficiently in agricultural operations
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### AI Agricultural Advisor
+- **Smart Recommendations**: AI-powered advice based on crop type, weather conditions, and field status
+- **Issue Diagnosis**: Help identify potential crop diseases and pest problems
+- **Resource Optimization**: Suggestions for efficient water and fertilizer usage
 
-Follow these steps:
+### Mobile-Friendly Interface
+- **Responsive Design**: Access the platform from any device - desktop, tablet, or smartphone
+- **Hebrew Interface**: Fully localized for Israeli farmers with right-to-left (RTL) support
+- **Intuitive Navigation**: Easy-to-use sidebar for quick access to all platform features
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Technical Information
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Tech Stack
 
-# Step 3: Install the necessary dependencies.
-npm i
+#### Frontend
+- **React**: Core library for building the user interface
+- **TypeScript**: For type-safe code development
+- **Vite**: Modern frontend build tool for faster development
+- **Tailwind CSS**: Utility-first CSS framework for styling
+- **shadcn/ui**: High-quality UI components built with Radix UI and Tailwind
+- **Recharts**: Composable charting library for data visualization
+- **React Router**: For handling page navigation
+- **Lucide React**: Modern icon set for the user interface
+- **Google Maps API**: For interactive field mapping and visualization
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+#### CSS Features
+- **RTL Support**: Full right-to-left language support for Hebrew
+- **Responsive Design**: Mobile-first approach ensuring usability on all devices
+- **Custom Agriculture Theme**: Specialized color palette for agricultural visualization
+
+### Development
+
+#### Prerequisites
+- Node.js (version 18 or higher)
+- npm or bun package manager
+
+#### Installation
+```bash
+# Clone the repository
+git clone [repository-url]
+
+# Navigate to project directory
+cd adama-smart
+
+# Install dependencies
+npm install
+# or
+bun install
+
+# Start development server
 npm run dev
+# or
+bun dev
 ```
 
-**Edit a file directly in GitHub**
+#### Environment Configuration
+The application requires the following environment variables:
+- `VITE_GOOGLE_MAPS_API_KEY`: Google Maps API key for mapping functionality
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+#### Building for Production
+```bash
+# Create optimized production build
+npm run build
+# or
+bun run build
 
-**Use GitHub Codespaces**
+# Preview production build locally
+npm run preview
+# or
+bun run preview
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Usage Examples
 
-## What technologies are used for this project?
+### Field Management
+1. Navigate to the dashboard to see an overview of all fields
+2. Click on any field in the map to see detailed information
+3. Schedule new activities through the field detail page
+4. Monitor upcoming activities in the sidebar widget
 
-This project is built with:
+### Weather Monitoring
+1. Check the weather widget on the dashboard for current conditions
+2. Visit the weather page for detailed 7-day forecast
+3. Review agricultural recommendations based on upcoming weather patterns
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Using the AI Advisor
+1. Navigate to the Advisor section
+2. Ask questions about crop management, disease identification, or resource optimization
+3. Receive AI-powered recommendations specific to your farm's conditions
 
-## How can I deploy this project?
+## Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/a8d1c623-ddbb-42d2-9443-6f20043b46fc) and click on Share -> Publish.
+The application can be deployed to any modern hosting platform that supports static site hosting, such as:
+- Vercel
+- Netlify
+- GitHub Pages
+- AWS S3 + CloudFront
 
-## Can I connect a custom domain to my Lovable project?
+## License
 
-Yes it is!
+© 2025 Smart Soil Agricultural Solutions. All rights reserved.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Support
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+For technical support or feature requests, please contact:
+support@adama-smart.co.il
+
+---
+
+*This platform is currently in active development. Features and interfaces may change as we continuously improve the system based on farmer feedback.*
