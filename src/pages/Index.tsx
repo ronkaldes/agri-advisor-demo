@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import FieldCard from '@/components/home/FieldCard';
@@ -10,7 +9,6 @@ import { CloudRain, Cloud, Sun, CloudDrizzle, Wind } from 'lucide-react';
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   
-  // סימולציה של טעינת נתונים
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -19,7 +17,6 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
   
-  // נתונים לדוגמה - במערכת אמיתית אלה יגיעו מהשרת
   const fields = [
     {
       id: '1',
@@ -149,7 +146,7 @@ const Index = () => {
         <div className="md:col-span-2">
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-4">מפת החלקות</h2>
-            <div className="h-[400px] w-full">
+            <div className="h-[400px] w-full bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
               <MapComponent />
             </div>
           </div>
