@@ -1,221 +1,45 @@
 
-import React, { useEffect, useRef, useState } from 'react';
-import { Loader } from '@googlemaps/js-api-loader';
-import { MapPin, Layers, Minus, Plus, AlertTriangle } from 'lucide-react';
+import React, { useRef } from 'react';
+import { useGoogleMaps } from './useGoogleMaps';
+import MapFields from './MapFields';
+import MapControls from './MapControls';
+import MapError from './MapError';
+import MapLoading from './MapLoading';
 
-// מיקום ברירת מחדל - הוד השרון
-const DEFAULT_CENTER = { lat: 32.1558, lng: 34.8934 };
-const DEFAULT_ZOOM = 14;
-
-// ממשק עבור Google Maps
+// Google Maps interface
 declare global {
   interface Window {
     google: any;
   }
 }
 
-// רכיב ראשי של המפה
+// Main map component
 const MapComponent: React.FC = () => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [mapInstance, setMapInstance] = useState<google.maps.Map | null>(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { mapInstance, mapLoaded, error } = useGoogleMaps({ mapRef });
   
-  useEffect(() => {
-    // מפתח API של Google Maps - קריאה ממשתנה סביבה
-    const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyBWAJOW-wip88IIn0vmQtDC6iRXB9jbvTQ';
-    
-    if (!mapRef.current) return;
-
-    // בדיקה אם המפתח קיים
-    if (!API_KEY) {
-      setError('מפתח API של Google Maps חסר. יש להגדיר משתנה סביבה VITE_GOOGLE_MAPS_API_KEY.');
-      return;
-    }
-
-    const loader = new Loader({
-      apiKey: API_KEY,
-      version: 'weekly',
-      libraries: ['places', 'drawing', 'geometry']
-    });
-    
-    loader.load()
-      .then(() => {
-        if (mapRef.current) {
-          const map = new window.google.maps.Map(mapRef.current, {
-            center: DEFAULT_CENTER,
-            zoom: DEFAULT_ZOOM,
-            mapTypeId: window.google.maps.MapTypeId.SATELLITE,
-            mapTypeControl: true,
-            mapTypeControlOptions: {
-              position: window.google.maps.ControlPosition.TOP_LEFT
-            },
-            fullscreenControl: true,
-            streetViewControl: false,
-            zoomControl: false
-          });
-          
-          setMapInstance(map);
-          setMapLoaded(true);
-          
-          // הוסף שטחים חקלאיים כדוגמה (במקום אמיתי, אלו יבואו מהדאטאבייס)
-          addExampleFields(map);
-        }
-      })
-      .catch(err => {
-        console.error('שגיאה בטעינת המפה:', err);
-        setError('שגיאה בטעינת המפה. ודא שמפתח ה-API תקף וללא הגבלות.');
-      });
-  }, []);
-  
-  // פונקציה להוספת שטחים חקלאיים לדוגמה
-  const addExampleFields = (map: google.maps.Map) => {
-    const fields = [
-      {
-        name: 'שדה 1',
-        path: [
-          { lat: 32.1558, lng: 34.8934 },
-          { lat: 32.1568, lng: 34.8954 },
-          { lat: 32.1548, lng: 34.8974 },
-          { lat: 32.1538, lng: 34.8954 },
-        ],
-        color: '#3D9970',
-      },
-      {
-        name: 'שדה 2',
-        path: [
-          { lat: 32.1518, lng: 34.8914 },
-          { lat: 32.1528, lng: 34.8934 },
-          { lat: 32.1508, lng: 34.8944 },
-          { lat: 32.1498, lng: 34.8924 },
-        ],
-        color: '#FF851B',
-      },
-    ];
-    
-    fields.forEach(field => {
-      const polygon = new window.google.maps.Polygon({
-        paths: field.path,
-        strokeColor: field.color,
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: field.color,
-        fillOpacity: 0.35,
-        editable: false,
-        map: map
-      });
-      
-      // הוסף מאזין לחיצה שיציג מידע
-      window.google.maps.event.addListener(polygon, 'click', () => {
-        alert(`שם השדה: ${field.name}`);
-      });
-    });
-  };
-  
-  // התמקד במיקום הנוכחי של המשתמש
-  const centerOnUserLocation = () => {
-    if (!mapInstance) return;
-    
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          mapInstance.setCenter(pos);
-          mapInstance.setZoom(16);
-          
-          // הוסף סמן למיקום המשתמש
-          new window.google.maps.Marker({
-            position: pos,
-            map: mapInstance,
-            title: 'המיקום שלך',
-            icon: {
-              path: window.google.maps.SymbolPath.CIRCLE,
-              scale: 8,
-              fillColor: '#4285F4',
-              fillOpacity: 1,
-              strokeColor: '#fff',
-              strokeWeight: 2,
-            },
-          });
-        },
-        () => {
-          setError('לא ניתן לקבל את המיקום שלך');
-        }
-      );
-    } else {
-      setError('הדפדפן שלך לא תומך בשירותי מיקום');
-    }
-  };
-  
-  // התקרב/התרחק
-  const zoomIn = () => mapInstance?.setZoom((mapInstance.getZoom() || DEFAULT_ZOOM) + 1);
-  const zoomOut = () => mapInstance?.setZoom((mapInstance.getZoom() || DEFAULT_ZOOM) - 1);
-  
-  // אם יש שגיאה, הצג הודעת שגיאה מותאמת במקום המפה
+  // If there's an error, display error component
   if (error) {
-    return (
-      <div className="flex flex-col items-center justify-center h-full w-full bg-gray-100 rounded-lg p-4 border border-gray-300">
-        <AlertTriangle size={48} className="text-orange-500 mb-4" />
-        <h3 className="text-lg font-semibold mb-2">שגיאת טעינת מפה</h3>
-        <p className="text-gray-700 text-center mb-3">{error}</p>
-        <div className="text-sm text-gray-500 text-center max-w-md">
-          <p>כדי להציג את המפה, יש צורך במפתח API תקף של Google Maps.</p>
-          <p className="mt-2">הוסף משתנה סביבה VITE_GOOGLE_MAPS_API_KEY או ודא שהמפתח שלך אינו מוגבל.</p>
-        </div>
-      </div>
-    );
+    return <MapError error={error} />;
   }
   
   return (
     <div className="relative h-full w-full rounded-lg overflow-hidden">
       <div ref={mapRef} className="h-full w-full" />
       
-      {/* כפתורי שליטה */}
-      {mapLoaded && (
-        <div className="absolute bottom-4 left-4 flex flex-col gap-2">
-          <button
-            onClick={centerOnUserLocation}
-            className="bg-white p-2 rounded-full shadow-md hover:bg-gray-100"
-            title="עבור למיקום שלי"
-          >
-            <MapPin size={24} className="text-agri-blue" />
-          </button>
-          
-          <button
-            onClick={zoomIn}
-            className="bg-white p-2 rounded-full shadow-md hover:bg-gray-100"
-            title="התקרב"
-          >
-            <Plus size={24} />
-          </button>
-          
-          <button
-            onClick={zoomOut}
-            className="bg-white p-2 rounded-full shadow-md hover:bg-gray-100"
-            title="התרחק"
-          >
-            <Minus size={24} />
-          </button>
-          
-          <button
-            className="bg-white p-2 rounded-full shadow-md hover:bg-gray-100"
-            title="הוסף שכבות"
-          >
-            <Layers size={24} className="text-agri-green" />
-          </button>
-        </div>
+      {/* Render fields on the map when loaded */}
+      {mapLoaded && mapInstance && (
+        <MapFields mapInstance={mapInstance} />
       )}
       
+      {/* Control buttons */}
+      {mapLoaded && mapInstance && (
+        <MapControls mapInstance={mapInstance} />
+      )}
+      
+      {/* Loading indicator */}
       {!mapLoaded && !error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-70">
-          <div className="text-center">
-            <p className="mb-2">טוען מפה...</p>
-            <div className="w-8 h-8 border-t-2 border-agri-green rounded-full animate-spin mx-auto"></div>
-          </div>
-        </div>
+        <MapLoading />
       )}
     </div>
   );
