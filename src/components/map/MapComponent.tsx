@@ -22,10 +22,16 @@ const MapComponent: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   
   useEffect(() => {
-    // מפתח API של Google Maps
-    const API_KEY = 'AIzaSyBWAJOW-wip88IIn0vmQtDC6iRXB9jbvTQ';
+    // מפתח API של Google Maps - קריאה ממשתנה סביבה
+    const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyBWAJOW-wip88IIn0vmQtDC6iRXB9jbvTQ';
     
     if (!mapRef.current) return;
+
+    // בדיקה אם המפתח קיים
+    if (!API_KEY) {
+      setError('מפתח API של Google Maps חסר. יש להגדיר משתנה סביבה VITE_GOOGLE_MAPS_API_KEY.');
+      return;
+    }
 
     const loader = new Loader({
       apiKey: API_KEY,
@@ -157,7 +163,7 @@ const MapComponent: React.FC = () => {
         <p className="text-gray-700 text-center mb-3">{error}</p>
         <div className="text-sm text-gray-500 text-center max-w-md">
           <p>כדי להציג את המפה, יש צורך במפתח API תקף של Google Maps.</p>
-          <p className="mt-2">וודא שהמפתח שלך אינו מוגבל ושיש גישה לשירות Google Maps JavaScript API.</p>
+          <p className="mt-2">הוסף משתנה סביבה VITE_GOOGLE_MAPS_API_KEY או ודא שהמפתח שלך אינו מוגבל.</p>
         </div>
       </div>
     );
