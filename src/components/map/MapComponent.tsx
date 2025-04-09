@@ -5,6 +5,7 @@ import MapFields from './MapFields';
 import MapControls from './MapControls';
 import MapError from './MapError';
 import MapLoading from './MapLoading';
+import { toast } from "@/components/ui/use-toast";
 
 // Google Maps interface
 declare global {
@@ -17,6 +18,17 @@ declare global {
 const MapComponent: React.FC = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const { mapInstance, mapLoaded, error } = useGoogleMaps({ mapRef });
+  
+  // Display toast notification on successful map load
+  React.useEffect(() => {
+    if (mapLoaded && mapInstance) {
+      toast({
+        title: "המפה נטענה בהצלחה",
+        description: "ניתן לצפות בחלקות והשדות השונים",
+        duration: 3000,
+      });
+    }
+  }, [mapLoaded, mapInstance]);
   
   // If there's an error, display error component
   if (error) {
